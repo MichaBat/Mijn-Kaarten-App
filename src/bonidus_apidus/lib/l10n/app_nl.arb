@@ -1,0 +1,54 @@
+{
+  "@@locale": "nl",
+
+  "appTitle": "Mijn Kaarten",
+  "appDescription": "Jouw makkelijke manier om je kaarten op te slaan en op te halen!",
+  "homeHeader": "Kies uw kaart",
+  "searchPlaceholder": "Zoeken...",
+
+  "settingsTitle": "Instellingen",
+  "aboutSectionTitle": "Over de app",
+  "appVersionLabel": "Versie {version}",
+  "@appVersionLabel": {
+    "placeholders": {
+      "version": { "type": "String" }
+    }
+  },
+  "cardManagementSectionTitle": "Kaartbeheer",
+  "exportCardsButton": "Kaarten exporteren",
+  "importCardsButton": "Kaarten importeren",
+  "deleteAllButton": "Alles verwijderen",
+  "deleteAllDialogTitle": "Alles verwijderen",
+  "deleteAllDialogContent": "Weet je zeker dat je alle kaarten wilt verwijderen? Dit kan niet ongedaan worden gemaakt.",
+  "cancel": "Annuleren",
+  "delete": "Verwijderen",
+  "deleteAllSuccess": "Alle kaarten zijn verwijderd.",
+  "deleteAllFailure": "Verwijderen is mislukt.",
+  "exportSuccess": "Kaarten zijn geëxporteerd.",
+  "exportFailure": "Exporteren is mislukt of geannuleerd.",
+  "importDuplicatesDialogTitle": "Kaarten bestaan al",
+  "importDuplicatesDialogContent": "Sommige kaarten in dit bestand bestaan al. Wil je alleen de nieuwe kaarten importeren?",
+  "importOnlyNew": "Ja, alleen nieuwe",
+  "importSuccess": "Kaarten zijn geïmporteerd.",
+  "importFailure": "Importeren is mislukt.",
+
+  "editCardTitle": "Kaart bewerken",
+  "addCardTitle": "Kaart toevoegen",
+  "titleFieldLabel": "Titel",
+  "domainFieldLabel": "Domein",
+  "domainFieldPlaceholder": "domein.com; bv. ah.nl",
+  "scanFieldLabel": "Scannen",
+  "scanCardButton": "Scan Kaart",
+  "updateButton": "Bijwerken",
+  "addButton": "Toevoegen",
+
+  "titleRequired": "Titel is verplicht",
+  "domainRequired": "Domein is verplicht",
+  "domainInvalid": "Voer een geldig domein in, bv. ah.nl",
+  "barcodeRequired": "Scan een barcode of QR-code",
+
+  "noBarcodeAvailable": "Geen barcode beschikbaar",
+  "scanCardAppBarTitle": "Scan je kaart!",
+  "pickFromGalleryTooltip": "Kies uit galerij",
+  "noCodeFoundInImage": "Geen code gevonden in afbeelding"
+}
