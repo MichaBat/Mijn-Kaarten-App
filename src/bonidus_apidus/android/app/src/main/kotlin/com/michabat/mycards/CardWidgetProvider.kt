@@ -1,4 +1,4 @@
-package com.batelaan.bonidus_apidus
+package com.michabat.mycards
 
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
@@ -25,7 +25,7 @@ class CardWidgetProvider : HomeWidgetProvider() {
             serviceIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId)
             // Each widget instance needs a distinct Intent, otherwise Android reuses the
             // same RemoteViewsFactory for every instance of this widget.
-            serviceIntent.data = Uri.parse("content://com.batelaan.bonidus_apidus/widget/$widgetId")
+            serviceIntent.data = Uri.parse("content://com.michabat.mycards/widget/$widgetId")
             views.setRemoteAdapter(R.id.widget_list_view, serviceIntent)
             views.setEmptyView(R.id.widget_list_view, R.id.widget_empty_view)
 

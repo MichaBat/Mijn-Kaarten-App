@@ -9,7 +9,7 @@ import '../../core/utils/barcode_format.dart';
 import '../../domain/entities/card_item.dart';
 import '../../l10n/app_localizations.dart';
 
-const _exitChannel = MethodChannel('com.batelaan.bonidus_apidus/exit');
+const _exitChannel = MethodChannel('com.michabat.mycards/exit');
 
 class ScanCardScreen extends StatefulWidget {
   const ScanCardScreen({super.key, required this.card, this.dismissOnTap = true});

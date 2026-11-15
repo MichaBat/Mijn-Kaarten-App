@@ -1,11 +1,11 @@
-package com.batelaan.bonidus_apidus
+package com.michabat.mycards
 
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodChannel
 
 class MainActivity : FlutterActivity() {
-    private val exitChannel = "com.batelaan.bonidus_apidus/exit"
+    private val exitChannel = "com.michabat.mycards/exit"
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)

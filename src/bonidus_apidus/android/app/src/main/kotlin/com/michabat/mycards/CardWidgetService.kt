@@ -1,4 +1,4 @@
-package com.batelaan.bonidus_apidus
+package com.michabat.mycards
 
 import android.content.Intent
 import android.widget.RemoteViewsService
