@@ -1,0 +1,32 @@
+[Unit]
+Description=Mijn Kaarten brand-search proxy
+After=network.target
+
+[Service]
+Type=simple
+# Draait als een eigen, speciaal voor deze service aangemaakt systeemaccount
+# (geen login, geen sudo) dat alleen eigenaar is van /opt/mycards-proxy/server.
+# Zo kan dit proces nergens anders op het systeem bij, ook niet als er een
+# bug in zit. Aanmaken op de server:
+#   sudo useradd --system --no-create-home --shell /usr/sbin/nologin mycards-proxy
+#   sudo chown -R mycards-proxy:mycards-proxy /opt/mycards-proxy/server
+User=mycards-proxy
+Group=mycards-proxy
+WorkingDirectory=/opt/mycards-proxy/server
+EnvironmentFile=/opt/mycards-proxy/server/.env
+ExecStart=/usr/bin/node src/index.js
+Restart=on-failure
+RestartSec=5
+
+# Hardening: proces kan nergens op het systeem bij, behalve zijn eigen map.
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+
+# Voorkom dat een bug hier de andere 2 sites op de server laat stikken.
+MemoryMax=256M
+CPUQuota=50%
+
+[Install]
+WantedBy=multi-user.target
