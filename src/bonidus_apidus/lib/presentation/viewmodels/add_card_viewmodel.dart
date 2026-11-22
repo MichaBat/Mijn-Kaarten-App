@@ -1,3 +1,7 @@
+import 'dart:async';
+
+import 'package:bonidus_apidus/data/models/brand_search_result.dart';
+import 'package:bonidus_apidus/data/services/brand_search_service.dart';
 import 'package:bonidus_apidus/domain/entities/card_item.dart';
 import 'package:flutter/material.dart';
 
@@ -8,8 +12,10 @@ class AddCardViewModel extends ChangeNotifier {
     required Future<bool> Function(CardItem) onAddCard,
     required Future<bool> Function(CardItem) onEditCard,
     this.existingCard,
+    BrandSearchService? brandSearchService,
   })  : _onAddCard = onAddCard,
-        _onEditCard = onEditCard {
+        _onEditCard = onEditCard,
+        _brandSearchService = brandSearchService ?? BrandSearchService() {
     final card = existingCard;
     if (card != null) {
       titleController.text = card.title;
@@ -27,6 +33,7 @@ class AddCardViewModel extends ChangeNotifier {
 
   final Future<bool> Function(CardItem) _onAddCard;
   final Future<bool> Function(CardItem) _onEditCard;
+  final BrandSearchService _brandSearchService;
 
   final formKey = GlobalKey<FormState>();
 
@@ -57,6 +64,48 @@ class AddCardViewModel extends ChangeNotifier {
     return (value == null || value.trim().isEmpty)
         ? AddCardFieldError.barcodeRequired
         : null;
+  }
+
+  Timer? _searchDebounce;
+  List<BrandSearchResult> brandSuggestions = [];
+  bool isSearchingBrands = false;
+
+  void onDomainQueryChanged(String query) {
+    _searchDebounce?.cancel();
+
+    final trimmed = query.trim();
+    if (trimmed.length < 2) {
+      brandSuggestions = [];
+      isSearchingBrands = false;
+      notifyListeners();
+      return;
+    }
+
+    _searchDebounce = Timer(const Duration(milliseconds: 400), () => _searchBrands(trimmed));
+  }
+
+  Future<void> _searchBrands(String query) async {
+    isSearchingBrands = true;
+    notifyListeners();
+
+    try {
+      final results = await _brandSearchService.search(query);
+      brandSuggestions = results;
+    } catch (_) {
+      brandSuggestions = [];
+    } finally {
+      isSearchingBrands = false;
+      notifyListeners();
+    }
+  }
+
+  void selectBrandSuggestion(BrandSearchResult brand) {
+    domainController.text = brand.domain;
+    if (titleController.text.trim().isEmpty) {
+      titleController.text = brand.name;
+    }
+    brandSuggestions = [];
+    notifyListeners();
   }
 
   String? codeValue;
@@ -100,6 +149,7 @@ class AddCardViewModel extends ChangeNotifier {
 
   @override
   void dispose() {
+    _searchDebounce?.cancel();
     titleController.dispose();
     domainController.dispose();
     barcodeController.dispose();

@@ -98,9 +98,45 @@ class _AddCardView extends StatelessWidget {
                 title: l10n.domainFieldLabel,
                 controller: viewModel.domainController,
                 placeholder: l10n.domainFieldPlaceholder,
-                onChanged: (String value) {},
+                onChanged: viewModel.onDomainQueryChanged,
                 validator: (value) => _fieldError(l10n, viewModel.validateDomain(value)),
               ),
+              if (viewModel.isSearchingBrands)
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  child: LinearProgressIndicator(minHeight: 2),
+                ),
+              if (viewModel.brandSuggestions.isNotEmpty)
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: colours.AppColours.searchInputBackground,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    constraints: const BoxConstraints(maxHeight: 240),
+                    child: ListView.separated(
+                      shrinkWrap: true,
+                      padding: EdgeInsets.zero,
+                      itemCount: viewModel.brandSuggestions.length,
+                      separatorBuilder: (_, _) => const Divider(height: 1),
+                      itemBuilder: (context, index) {
+                        final brand = viewModel.brandSuggestions[index];
+                        return ListTile(
+                          leading: Image.network(
+                            brand.logoUrl,
+                            width: 32,
+                            height: 32,
+                            errorBuilder: (_, _, _) => const Icon(Icons.business),
+                          ),
+                          title: Text(brand.name),
+                          subtitle: Text(brand.domain),
+                          onTap: () => viewModel.selectBrandSuggestion(brand),
+                        );
+                      },
+                    ),
+                  ),
+                ),
               GestureDetector(
                 onTap: () => _scanCard(context),
                 child: InputField(
